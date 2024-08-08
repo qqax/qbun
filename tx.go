@@ -8,7 +8,7 @@ import (
 
 type txFunc func(ctx context.Context, tx bun.Tx) error
 
-func RunInTx(ctx context.Context, db *bun.DB, fs ...txFunc) error {
+func RunInTx(ctx context.Context, fs ...txFunc) error {
 	err := db.RunInTx(ctx, &sql.TxOptions{}, func(ctx context.Context, tx bun.Tx) error {
 		for _, f := range fs {
 			err := f(ctx, tx)
